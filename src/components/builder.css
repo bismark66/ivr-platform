@@ -9,3 +9,13 @@
   background: white;
   color: #111;
 }
+
+.dark .react-flow__controls {
+  background: #777;
+  color: white;
+}
+
+.light .react-flow__controls {
+  background: white;
+  color: #111;
+}
