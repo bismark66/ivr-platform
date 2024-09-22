@@ -38,6 +38,8 @@ export default function RootLayout({ children }) {
     path === "/editor" ? showSidebar(true) : showSidebar(false);
   }, [path]);
 
+  const Pages = React.cloneElement(children, { userTheme });
+
   return (
     <html lang="en">
       <body>
@@ -49,7 +51,6 @@ export default function RootLayout({ children }) {
                   ? theme.defaultAlgorithm
                   : theme.darkAlgorithm,
               token: {
-                // Provide a fallback for colors to avoid the "undefined" error
                 colorPrimary: "#1890ff", // Default primary blue color for light theme
                 colorPrimaryDark: "#001529", // Default primary dark color
               },
@@ -78,20 +79,21 @@ export default function RootLayout({ children }) {
                 </Sider>
                 <Content
                   style={{
-                    margin: "24px 16px 0",
+                    // margin: "24px 16px 0",
                     overflowY: "auto",
-                    minHeight: "100vh",
+                    // minHeight: "100vh",
+                    height: "100vh",
                   }}
                 >
                   <div
                     style={{
-                      padding: 24,
+                      padding: 15,
                       // minHeight: 360,
                       // background: "white",
                       // borderRadius: 30,
                     }}
                   >
-                    {children}
+                    {Pages}
                   </div>
                 </Content>
                 {sidebar && (

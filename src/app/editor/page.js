@@ -1,9 +1,20 @@
 /** @format */
 
+import Builder from "@/components/builder";
 import React from "react";
 
-function Editor() {
-  return <div>Editor</div>;
+function Editor({ userTheme }) {
+  return (
+    <div
+      style={
+        {
+          //   backgroundColor: "green"
+        }
+      }
+    >
+      <Builder userTheme={userTheme} />
+    </div>
+  );
 }
 
 export default Editor;
