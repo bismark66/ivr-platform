@@ -2,14 +2,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, theme, ConfigProvider } from "antd";
+// import {
+//   UploadOutlined,
+//   UserOutlined,
+//   VideoCameraOutlined,
+// } from "@ant-design/icons";
+import { Layout, theme, ConfigProvider, useMantineTheme } from "antd";
 import AppHeader from "@/components/AppHeader";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation";
@@ -25,7 +25,14 @@ const { Header, Content, Sider } = Layout;
 
 export default function RootLayout({ children }) {
   const [sidebar, showSidebar] = useState(false);
-  const path = usePathname(); // This only works on the client-side
+  const path = usePathname();
+  const [userTheme, setUserTheme] = useState("light");
+
+  const handleThemeChange = (newTheme) => {
+    console.log(newTheme);
+    setUserTheme(newTheme);
+    return;
+  };
 
   useEffect(() => {
     path === "/editor" ? showSidebar(true) : showSidebar(false);
@@ -33,20 +40,26 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body
-      //  className={inter.className}
-      >
+      <body>
         <AntdRegistry>
           <ConfigProvider
             theme={{
-              algorithm: theme.defaultAlgorithm,
+              algorithm:
+                userTheme === "light"
+                  ? theme.defaultAlgorithm
+                  : theme.darkAlgorithm,
+              token: {
+                // Provide a fallback for colors to avoid the "undefined" error
+                colorPrimary: "#1890ff", // Default primary blue color for light theme
+                colorPrimaryDark: "#001529", // Default primary dark color
+              },
             }}
           >
             <Layout style={{ height: "100vh", overflow: "hidden" }}>
               <Header
-                style={{ padding: 0, background: "blue", color: "white" }}
+                style={{ padding: 0, background: "white", color: "white" }}
               >
-                <AppHeader />
+                <AppHeader onThemeChange={handleThemeChange} />
               </Header>
               <Layout>
                 <Sider
@@ -64,13 +77,17 @@ export default function RootLayout({ children }) {
                   <Navbar />
                 </Sider>
                 <Content
-                // style={{ margin: "24px 16px 0" }}
+                  style={{
+                    margin: "24px 16px 0",
+                    overflowY: "auto",
+                    minHeight: "100vh",
+                  }}
                 >
                   <div
                     style={{
                       padding: 24,
                       // minHeight: 360,
-                      background: "white",
+                      // background: "white",
                       // borderRadius: 30,
                     }}
                   >

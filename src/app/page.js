@@ -93,7 +93,9 @@ export default function Home() {
           </p>
         </a>
       </div> */}
-      <h2 style={{ textAlign: "center", color: "black" }}>
+      <h2
+      // style={{ textAlign: "center", color: "black" }}
+      >
         IVR - Platform lorem ipsumPellentesque laoreet erat vel nisi volutpat,
         vitae eleifend lorem bibendum. Class aptent taciti sociosqu ad litora
         torquent per conubia nostra, per inceptos himenaeos. Duis non lorem
