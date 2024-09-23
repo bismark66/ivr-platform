@@ -1,6 +1,6 @@
 /** @format */
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   ReactFlow,
   MiniMap,
@@ -13,7 +13,6 @@ import {
 
 import "@xyflow/react/dist/style.css";
 import "./builder.css";
-import useStore from "../utils/store.js";
 import { useSelector, useDispatch } from "react-redux";
 import {
   onNodesChange,
@@ -23,16 +22,30 @@ import {
 import MenuNode from "./steps/menu";
 import "./steps/menu.css";
 
-const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-const nodeTypes = { dropdown: MenuNode };
+// const initialNodes = [
+//   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
+//   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
+// ];
+// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
-export default function Builder({ userTheme }) {
+const nodeTypes = { dropdown: MenuNode };
+export default function Builder({ userTheme, node }) {
+  console.log("----", userTheme);
+  //   const nodeTypes = { dropdown: node };
+
   const { nodes, edges } = useSelector((state) => state.flow);
   const dispatch = useDispatch();
+
+  const buttonMessage = useSelector((state) => state.flow.buttonMessage);
+  const clickCount = useSelector((state) => state.flow.clickCount);
+
+  useEffect(() => {
+    if (clickCount > 0) {
+      // Trigger function or handle the message when buttonMessage changes
+      console.log("Received message:", buttonMessage);
+      //   triggerFunction(buttonMessage);
+    }
+  }, [clickCount]);
 
   const handleNodesChange = (changes) => {
     dispatch(onNodesChange(changes));

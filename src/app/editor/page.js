@@ -3,7 +3,8 @@
 import React from "react";
 import Builder from "@/components/builder";
 
-function Editor({ userTheme }) {
+function Editor({ userTheme, node }) {
+  //   console.log("----", userTheme);
   return (
     <div
       style={
@@ -12,7 +13,7 @@ function Editor({ userTheme }) {
         }
       }
     >
-      <Builder userTheme={userTheme} />
+      <Builder userTheme={userTheme} node={node} />
     </div>
   );
 }

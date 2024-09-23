@@ -1,11 +1,19 @@
 /** @format */
+"use client";
 
 import React from "react";
 import { Row, Col, Button } from "antd";
 import MenuNode from "./steps/menu";
+import { useDispatch } from "react-redux";
+import { updateMessage } from "../utils/storeController";
 
+// const handleClick = () => {
+//     dispatch(toggleButtonClick()); // Dispatch action to change button click state
+// };
 function ToolBar({ addNode }) {
-  const handleClick = (nodeItem) => addNode(nodeItem);
+  const dispatch = useDispatch();
+  //   const handleClick = (nodeItem) => addNode(nodeItem);
+  const handleClick = (nodeItem) => dispatch(updateMessage(nodeItem));
 
   return (
     <>
@@ -35,7 +43,7 @@ function ToolBar({ addNode }) {
             <Button
               style={{ width: "80%" }}
               type="primary"
-              onClick={() => handleClick("audio")}
+              onClick={() => handleClick("AudioNode")}
             >
               Audio Step
             </Button>
@@ -44,7 +52,7 @@ function ToolBar({ addNode }) {
             <Button
               style={{ width: "80%" }}
               type="primary"
-              onClick={() => handleClick("menu")}
+              onClick={() => handleClick("MenuNode")}
             >
               Menu
             </Button>

@@ -10,6 +10,8 @@ const flowSlice = createSlice({
   initialState: {
     nodes: initialNodes,
     edges: initialEdges,
+    buttonClicked: "",
+    clickCount: 0,
   },
   reducers: {
     setNodes: (state, action) => {
@@ -27,10 +29,20 @@ const flowSlice = createSlice({
     onConnect: (state, action) => {
       state.edges = addEdge(action.payload, state.edges);
     },
+    updateMessage: (state, action) => {
+      state.buttonMessage = action.payload; // Set the string passed from button
+      state.clickCount = state.clickCount + 1;
+    },
   },
 });
 
-export const { setNodes, setEdges, onNodesChange, onEdgesChange, onConnect } =
-  flowSlice.actions;
+export const {
+  setNodes,
+  setEdges,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  updateMessage,
+} = flowSlice.actions;
 
 export default flowSlice.reducer;

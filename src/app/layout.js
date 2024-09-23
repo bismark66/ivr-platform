@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
   const [sidebar, showSidebar] = useState(false);
   const path = usePathname();
   const [userTheme, setUserTheme] = useState("light");
+  const [node, clickedNode] = useState();
 
   const handleThemeChange = (newTheme) => {
     console.log(newTheme);
@@ -39,13 +40,15 @@ export default function RootLayout({ children }) {
 
   const addNode = (node) => {
     console.log(node);
+    clickedNode(node);
+    return;
   };
 
   useEffect(() => {
     path === "/editor" ? showSidebar(true) : showSidebar(false);
   }, [path]);
 
-  const Pages = React.cloneElement(children, { userTheme });
+  const Pages = React.cloneElement(children, { userTheme, node });
 
   return (
     <html lang="en">
@@ -104,9 +107,11 @@ export default function RootLayout({ children }) {
                   </div>
                 </Content>
                 {sidebar && (
-                  <Sider width="10%" style={{ backgroundColor: "#4096ff" }}>
-                    <ToolBar addNode={addNode} />
-                  </Sider>
+                  <Provider store={store}>
+                    <Sider width="10%" style={{ backgroundColor: "#4096ff" }}>
+                      <ToolBar addNode={addNode} />
+                    </Sider>
+                  </Provider>
                 )}
               </Layout>
             </Layout>
