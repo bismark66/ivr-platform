@@ -13,6 +13,14 @@ import {
 
 import "@xyflow/react/dist/style.css";
 import "./builder.css";
+import { useShallow } from "zustand/react/shallow";
+import useStore from "../utils/store.js";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+} from "../utils/storeController.js";
 
 const initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
@@ -21,22 +29,37 @@ const initialNodes = [
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 export default function Builder({ userTheme }) {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const { nodes, edges } = useSelector((state) => state.flow);
+  const dispatch = useDispatch();
 
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
-  );
+  const handleNodesChange = (changes) => {
+    dispatch(onNodesChange(changes));
+  };
+
+  const handleEdgesChange = (changes) => {
+    dispatch(onEdgesChange(changes));
+  };
+
+  const handleConnect = (connection) => {
+    dispatch(onConnect(connection));
+  };
+
+  //   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  //   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  //   const onConnect = useCallback(
+  //     (params) => setEdges((eds) => addEdge(params, eds)),
+  //     [setEdges]
+  //   );
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        onNodesChange={handleNodesChange}
+        onEdgesChange={handleEdgesChange}
+        onConnect={handleConnect}
         colorMode={userTheme}
       >
         <Controls />

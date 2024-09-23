@@ -13,6 +13,8 @@ import { Layout, theme, ConfigProvider, useMantineTheme } from "antd";
 import AppHeader from "@/components/AppHeader";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation";
+import { Provider } from "react-redux";
+import { store } from "../utils/store";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -93,7 +95,7 @@ export default function RootLayout({ children }) {
                       // borderRadius: 30,
                     }}
                   >
-                    {Pages}
+                    <Provider store={store}>{Pages}</Provider>
                   </div>
                 </Content>
                 {sidebar && (
