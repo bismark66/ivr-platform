@@ -6,14 +6,13 @@ import {
   MiniMap,
   Controls,
   Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
+  //   useNodesState,
+  //   useEdgesState,
+  //   addEdge,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
 import "./builder.css";
-import { useShallow } from "zustand/react/shallow";
 import useStore from "../utils/store.js";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,12 +20,15 @@ import {
   onEdgesChange,
   onConnect,
 } from "../utils/storeController.js";
+import MenuNode from "./steps/menu";
+import "./steps/menu.css";
 
 const initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
 ];
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+const nodeTypes = { dropdown: MenuNode };
 
 export default function Builder({ userTheme }) {
   const { nodes, edges } = useSelector((state) => state.flow);
@@ -53,17 +55,18 @@ export default function Builder({ userTheme }) {
   //   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "90vh" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={handleNodesChange}
         onEdgesChange={handleEdgesChange}
         onConnect={handleConnect}
+        nodeTypes={nodeTypes}
         colorMode={userTheme}
       >
         <Controls />
-        <MiniMap />
+        <MiniMap position="bottom-center" />
         <Background variant="dots" gap={12} size={1} />
       </ReactFlow>
     </div>

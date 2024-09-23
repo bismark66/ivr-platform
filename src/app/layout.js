@@ -9,12 +9,13 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 //   UserOutlined,
 //   VideoCameraOutlined,
 // } from "@ant-design/icons";
-import { Layout, theme, ConfigProvider, useMantineTheme } from "antd";
+import { Layout, theme, ConfigProvider } from "antd";
 import AppHeader from "@/components/AppHeader";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
 import { store } from "../utils/store";
+import ToolBar from "@/components/toolBar";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,10 @@ export default function RootLayout({ children }) {
     console.log(newTheme);
     setUserTheme(newTheme);
     return;
+  };
+
+  const addNode = (node) => {
+    console.log(node);
   };
 
   useEffect(() => {
@@ -100,7 +105,7 @@ export default function RootLayout({ children }) {
                 </Content>
                 {sidebar && (
                   <Sider width="10%" style={{ backgroundColor: "#4096ff" }}>
-                    Sider
+                    <ToolBar addNode={addNode} />
                   </Sider>
                 )}
               </Layout>

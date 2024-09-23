@@ -1,7 +1,7 @@
 /** @format */
 
-import Builder from "@/components/builder";
 import React from "react";
+import Builder from "@/components/builder";
 
 function Editor({ userTheme }) {
   return (

@@ -19,4 +19,10 @@ export default [
     data: { label: "Output" },
     position: { x: 250, y: 250 },
   },
+  {
+    id: "node-1",
+    type: "dropdown",
+    position: { x: 0, y: 0 },
+    data: { value: 123 },
+  },
 ];
