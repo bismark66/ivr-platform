@@ -1,16 +1,7 @@
 /** @format */
 "use client";
-import React, { useCallback, useEffect } from "react";
-import {
-  ReactFlow,
-  MiniMap,
-  Controls,
-  Background,
-  //   useNodesState,
-  //   useEdgesState,
-  //   addEdge,
-} from "@xyflow/react";
-
+import React, { useEffect } from "react";
+import { ReactFlow, MiniMap, Controls, Background } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import "./builder.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,32 +9,51 @@ import {
   onNodesChange,
   onEdgesChange,
   onConnect,
+  addNode,
 } from "../utils/storeController.js";
 import MenuNode from "./steps/menu";
 import "./steps/menu.css";
+import AudioNode from "./steps/audio";
+import VoiceRecordNode from "./steps/voiceRecord";
+import TransferCallNode from "./steps/transferCall";
 
-// const initialNodes = [
-//   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-//   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-// ];
-// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-
-const nodeTypes = { dropdown: MenuNode };
+const nodeTypes = {
+  AudioNode: AudioNode,
+  MenuNode: MenuNode,
+  VoiceRecordNode: VoiceRecordNode,
+  TransferCallNode: TransferCallNode,
+};
 export default function Builder({ userTheme, node }) {
-  console.log("----", userTheme);
-  //   const nodeTypes = { dropdown: node };
-
-  const { nodes, edges } = useSelector((state) => state.flow);
   const dispatch = useDispatch();
-
+  const { nodes, edges } = useSelector((state) => state.flow);
   const buttonMessage = useSelector((state) => state.flow.buttonMessage);
   const clickCount = useSelector((state) => state.flow.clickCount);
+  let halfScreen = 2;
+
+  const addNodeToFlow = (buttonMessage) => {
+    console.log("nnn");
+    if (!buttonMessage) return;
+    const newNode = {
+      id: `${buttonMessage}-${clickCount}`,
+      type: buttonMessage,
+      position: {
+        x: window.screen.width / halfScreen,
+        y: window.screen.height / halfScreen,
+      },
+      data: { value: buttonMessage },
+    };
+    console.log("newNode", newNode);
+
+    const nodeExists = nodes.some((node) => node.id === newNode.id);
+    if (!nodeExists) {
+      dispatch(addNode(newNode));
+    }
+  };
 
   useEffect(() => {
     if (clickCount > 0) {
-      // Trigger function or handle the message when buttonMessage changes
       console.log("Received message:", buttonMessage);
-      //   triggerFunction(buttonMessage);
+      addNodeToFlow(buttonMessage);
     }
   }, [clickCount]);
 
@@ -58,14 +68,6 @@ export default function Builder({ userTheme, node }) {
   const handleConnect = (connection) => {
     dispatch(onConnect(connection));
   };
-
-  //   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  //   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  //   const onConnect = useCallback(
-  //     (params) => setEdges((eds) => addEdge(params, eds)),
-  //     [setEdges]
-  //   );
 
   return (
     <div style={{ width: "100vw", height: "90vh" }}>

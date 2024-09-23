@@ -12,7 +12,21 @@ function VoiceRecordNode() {
     console.log(evt.target.value);
   }, []);
 
-  return <div>VoiceRecordNode</div>;
+  return (
+    <div className="text-updater-node">
+      <Handle type="target" position={Position.Top} />
+      <div style={{ textAlign: "center", color: "black" }}>
+        <h1>Voice Call Node</h1>
+      </div>
+      <Handle type="source" position={Position.Bottom} id="a" />
+      {/* <Handle
+      type="source"
+      position={Position.Bottom}
+      id="b"
+      style={handleStyle}
+    /> */}
+    </div>
+  );
 }
 
 export default VoiceRecordNode;

@@ -61,7 +61,7 @@ function ToolBar({ addNode }) {
             <Button
               style={{ width: "80%" }}
               type="primary"
-              onClick={() => handleClick("call")}
+              onClick={() => handleClick("TransferCallNode")}
             >
               Transfer Call
             </Button>
@@ -70,7 +70,7 @@ function ToolBar({ addNode }) {
             <Button
               style={{ width: "80%" }}
               type="primary"
-              onClick={() => handleClick("recorder")}
+              onClick={() => handleClick("VoiceRecordNode")}
             >
               Voice Recorder
             </Button>

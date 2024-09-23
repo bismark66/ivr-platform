@@ -33,6 +33,9 @@ const flowSlice = createSlice({
       state.buttonMessage = action.payload; // Set the string passed from button
       state.clickCount = state.clickCount + 1;
     },
+    addNode: (state, action) => {
+      state.nodes.push(action.payload); // Add new node to the state
+    },
   },
 });
 
@@ -43,6 +46,7 @@ export const {
   onEdgesChange,
   onConnect,
   updateMessage,
+  addNode,
 } = flowSlice.actions;
 
 export default flowSlice.reducer;
