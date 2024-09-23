@@ -1,34 +1,23 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "antd";
-const App = () => {
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-  const showLoading = () => {
-    setOpen(true);
-    setLoading(true);
-
-    // Simple loading mock. You should add cleanup logic in real world.
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+function AppModal({ visible, onClose }) {
+  const handleClick = () => {
+    prompt("reload");
   };
+
   return (
     <>
-      <Button type="primary" onClick={showLoading}>
-        Open Modal
-      </Button>
       <Modal
         title={<p>Loading Modal</p>}
         footer={
-          <Button type="primary" onClick={showLoading}>
+          <Button type="primary" onClick={() => handleClick()}>
             Reload
           </Button>
         }
-        loading={loading}
-        open={open}
-        onCancel={() => setOpen(false)}
+        open={visible}
+        onCancel={onClose}
       >
         <p>Some contents...</p>
         <p>Some contents...</p>
@@ -36,5 +25,5 @@ const App = () => {
       </Modal>
     </>
   );
-};
-export default App;
+}
+export default AppModal;

@@ -1,13 +1,27 @@
 /** @format */
-
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Button } from "antd";
 import AppCard from "@/components/card";
+import AppModal from "@/components/modal";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  const openModal = (state) => {
+    console.log("openModal", state);
+    setOpen(state);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   return (
     <main className={styles.main}>
+      <AppModal visible={open} onClose={closeModal} />
       <h2
       // style={{ textAlign: "center", color: "black" }}
       >
@@ -41,8 +55,8 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        <AppCard style={{ marginRight: "20px" }} />
-        <AppCard />
+        {/* <AppCard modalOpen={() => console.log("clicked")} /> */}
+        <AppCard modalOpen={() => openModal(true)} />
       </div>
 
       <Button type="primary">Submit</Button>
