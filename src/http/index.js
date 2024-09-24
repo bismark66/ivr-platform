@@ -1,10 +1,7 @@
 /** @format */
 
-// const { saveFlowToFirestore } = require("@/utils/storeController");
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import { nodes, edges } from "../utils/storeController";
-import { HttpResponse } from "./http_response";
 
 const Controller = {
   saveFlowToFirestore: async (nodes, edges) => {
@@ -33,10 +30,8 @@ const Controller = {
   },
   deleteFlowData: async (id) => {
     try {
-      // Reference to the document to delete
       const docRef = doc(db, "flows", id);
 
-      // Delete the document
       const res = await deleteDoc(docRef);
 
       console.log(`Document with ID ${id} has been deleted.`);
