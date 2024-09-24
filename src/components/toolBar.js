@@ -5,7 +5,11 @@ import React from "react";
 import { Row, Col, Button } from "antd";
 import MenuNode from "./steps/menu";
 import { useDispatch } from "react-redux";
-import { updateMessage } from "../utils/storeController";
+import {
+  updateMessage,
+  saveFlowToFirestore,
+  reset,
+} from "../utils/storeController";
 
 // const handleClick = () => {
 //     dispatch(toggleButtonClick()); // Dispatch action to change button click state
@@ -14,6 +18,13 @@ function ToolBar({ addNode }) {
   const dispatch = useDispatch();
   //   const handleClick = (nodeItem) => addNode(nodeItem);
   const handleClick = (nodeItem) => dispatch(updateMessage(nodeItem));
+  const saveFlow = () => {
+    dispatch(saveFlowToFirestore()); // Trigger the save action
+  };
+
+  const resetFlow = () => {
+    dispatch(reset()); // Trigger the save action
+  };
 
   return (
     <>
@@ -31,13 +42,6 @@ function ToolBar({ addNode }) {
           align={"middle"}
           style={{ marginTop: "20px" }}
           gutter={[16, 16]}
-          // style={{
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          //   marginTop: "20px",
-          //   marginBottom: "20px",
-          // }}
         >
           <Col span={24} style={{ textAlign: "center" }}>
             <Button
@@ -81,9 +85,22 @@ function ToolBar({ addNode }) {
           align={"middle"}
           style={{ marginBottom: "20px" }}
         >
-          <Col span={24} style={{ textAlign: "center" }}>
-            <Button style={{ width: "80%" }} type="primary">
+          <Col span={12} style={{ textAlign: "center" }}>
+            <Button
+              style={{ width: "80%" }}
+              type="primary"
+              onClick={() => saveFlow()}
+            >
               Save
+            </Button>
+          </Col>
+          <Col span={12} style={{ textAlign: "center" }}>
+            <Button
+              style={{ width: "80%" }}
+              type="primary"
+              onClick={() => resetFlow()}
+            >
+              Reset
             </Button>
           </Col>
         </Row>
