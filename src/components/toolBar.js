@@ -4,22 +4,29 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
 import MenuNode from "./steps/menu";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   updateMessage,
   saveFlowToFirestore,
   reset,
 } from "../utils/storeController";
+import Controller from "@/http";
 
 // const handleClick = () => {
 //     dispatch(toggleButtonClick()); // Dispatch action to change button click state
 // };
 function ToolBar({ addNode }) {
   const dispatch = useDispatch();
+  const { nodes, edges } = useSelector((state) => state.flow);
+
   //   const handleClick = (nodeItem) => addNode(nodeItem);
   const handleClick = (nodeItem) => dispatch(updateMessage(nodeItem));
-  const saveFlow = () => {
-    dispatch(saveFlowToFirestore()); // Trigger the save action
+  const saveFlow = async () => {
+    // const saveResponse = dispatch(saveFlowToFirestore()); // Trigger the save action
+    // console.log("saveResponse", saveResponse);
+
+    const res = await Controller.saveFlowToFirestore(nodes, edges);
+    console.log("res", res);
   };
 
   const resetFlow = () => {
