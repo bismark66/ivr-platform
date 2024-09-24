@@ -8,6 +8,7 @@ import AppCard from "@/components/card";
 import AppModal from "@/components/modal";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import Controller from "@/http";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -22,53 +23,15 @@ export default function Home() {
     setOpen(false);
   };
 
-  async function getAllFlows() {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    // querySnapshot.forEach((doc) => {
-    //   console.log(`${doc.id} => ${doc.data()}`);
-    // });
-
-    console.log("querySnapshot", querySnapshot);
-
-    // const querySnapshot = collection(db, "flows");
-    // querySnapshot
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     console.log(querySnapshot);
-    //     setAllFlows();
-    //     querySnapshot.forEach((doc) => {
-    //       console.log(doc.data());
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error getting documents: ", error);
-    //   });
-  }
-
-  const fetchFlowFromFirestore = async (dispatch, flowId) => {
-    try {
-      const docRef = await getDocs(collection(db, "flows"));
-      // const docSnap = await getDoc(docRef);
-      console.log("first", docRef);
-
-      // if (docSnap.exists()) {
-      //   const flowData = docSnap.data();
-      //   const { nodes, edges } = flowData;
-      //   console.log("--", docRef);
-
-      //   // Dispatch nodes and edges to the store
-      //   // dispatch(setNodes(nodes));
-      //   // dispatch(setEdges(edges));
-      // } else {
-      //   console.log("No such document!");
-      // }
-    } catch (error) {
-      console.error("Error fetching flow:", error);
+  const fetchFlowFromFirestore = async () => {
+    const querySnapshot = await Controller.getAllFlows();
+    if (querySnapshot.success) {
+      console.log("querySnapshot", querySnapshot.data.docs);
     }
   };
 
   useEffect(() => {
-    console.log("here");
+    console.log("");
     fetchFlowFromFirestore();
   }, []);
 

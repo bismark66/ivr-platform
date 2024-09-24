@@ -25,13 +25,16 @@ function ToolBar({ addNode }) {
     // const saveResponse = dispatch(saveFlowToFirestore()); // Trigger the save action
     // console.log("saveResponse", saveResponse);
 
+    if (nodes.length === 0 && edges.length === 0) {
+      console.log("No data was found");
+      return;
+    }
+
     const res = await Controller.saveFlowToFirestore(nodes, edges);
     console.log("res", res);
   };
 
-  const resetFlow = () => {
-    dispatch(reset()); // Trigger the save action
-  };
+  const resetFlow = () => dispatch(reset());
 
   return (
     <>
