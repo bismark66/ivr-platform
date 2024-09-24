@@ -1,14 +1,18 @@
 /** @format */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Button } from "antd";
 import AppCard from "@/components/card";
 import AppModal from "@/components/modal";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../utils/firebase";
+import Controller from "@/http";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [allFlows, setAllFlows] = useState([]);
 
   const openModal = (state) => {
     console.log("openModal", state);
@@ -18,6 +22,18 @@ export default function Home() {
   const closeModal = () => {
     setOpen(false);
   };
+
+  const fetchFlowFromFirestore = async () => {
+    const querySnapshot = await Controller.getAllFlows();
+    if (querySnapshot.success) {
+      console.log("querySnapshot", querySnapshot.data.docs);
+    }
+  };
+
+  useEffect(() => {
+    console.log("");
+    fetchFlowFromFirestore();
+  }, []);
 
   return (
     <main className={styles.main}>
