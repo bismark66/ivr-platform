@@ -6,10 +6,15 @@ import { Button, Row, Col } from "antd";
 import AppCard from "@/components/card";
 import AppModal from "@/components/modal";
 import Controller from "@/http";
+import { useDispatch } from "react-redux";
+import { reset, setFlow } from "@/utils/storeController";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [allFlows, setAllFlows] = useState([]);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const openModal = (state) => {
     console.log("openModal", state);
@@ -42,12 +47,20 @@ export default function Home() {
 
   const editFlow = async (id) => {
     console.log("editFlow id", id);
+    dispatch(reset());
     const querySnapshot = await Controller.getFlow(id);
     console.log("querySnapshot this is doc", querySnapshot);
+
     if (querySnapshot.success) {
-      console.log("querySnapshot", querySnapshot);
+      console.log("querySnapshot", querySnapshot.data.edges);
       console.log("worked");
-      // window.location.reload();
+      dispatch(
+        setFlow({
+          nodes: querySnapshot.data.nodes,
+          edges: querySnapshot.data.edges,
+        })
+      );
+      router.push("/editor");
     }
   };
 

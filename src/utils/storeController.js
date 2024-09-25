@@ -64,6 +64,7 @@ export const {
   addNode,
   saveFlowToFirestore,
   reset,
+  setFlow,
 } = flowSlice.actions;
 
 export default flowSlice.reducer;
