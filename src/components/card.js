@@ -11,20 +11,23 @@ import { Avatar, Card, Col, Row, Button } from "antd";
 const { Meta } = Card;
 import Controller from "@/http";
 
-function AppCard({ modalOpen, flow }) {
-  /*************  ✨ Codeium Command 🌟  *************/
-  const handleDelete = async () => {
-    console.log("---", flow.id);
-    try {
-      const res = await Controller.deleteFlowData(flow.id);
+function AppCard({ modalOpen, flow, handleDelete }) {
+  const handleDeleteClick = async (flow) => handleDelete(flow);
 
-      if (res.success) {
-        console.log("succ", res);
-      }
-    } catch (error) {
-      console.log("res", error);
-    }
-  };
+  //   const handleDeleteClick = async (flow) => {
+  //     console.log("---", flow);
+  //     handleDelete(flow);
+  //     // console.log("---", flow.id);
+  //     // try {
+  //     //   const res = await Controller.deleteFlowData(flow.id);
+
+  //     //   if (res.success) {
+  //     //     console.log("succ", res);
+  //     //   }
+  //     // } catch (error) {
+  //     //   console.log("res", error);
+  //     // }
+  //   };
   /******  dc3ca869-5aa7-4b37-9b7e-7f096471e6f4  *******/
 
   const handleModalOpen = () => modalOpen(true);
@@ -43,7 +46,7 @@ function AppCard({ modalOpen, flow }) {
       actions={[
         <DeleteOutlined
           style={{ color: "red" }}
-          onClick={() => handleDelete()}
+          onClick={() => handleDeleteClick(flow.id)}
         />,
         <EditOutlined key="edit" />,
         // <Button onClick={() => handleModalOpen()} type="primary">

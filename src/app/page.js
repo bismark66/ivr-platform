@@ -31,6 +31,16 @@ export default function Home() {
     }
   };
 
+  const deleteFlow = async (id) => {
+    console.log("deleteFlow id", id);
+    const querySnapshot = await Controller.deleteFlowData(id);
+    console.log("querySnapshot", querySnapshot);
+    if (querySnapshot.success) {
+      console.log("querySnapshot", querySnapshot);
+      setAllFlows(querySnapshot.data);
+    }
+  };
+
   useEffect(() => {
     console.log("");
     fetchFlowFromFirestore();
@@ -43,6 +53,7 @@ export default function Home() {
           <AppCard
             key={flow.id}
             flow={flow}
+            handleDelete={deleteFlow}
             modalOpen={() => openModal(true)}
           />
         </Col>
