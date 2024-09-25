@@ -48,8 +48,8 @@ const flowSlice = createSlice({
     //   // saveFlow(nodes, edges); // Call the function to save data to Firestore
     // },
     reset: (state) => {
-      state.nodes = initialNodes;
-      state.edges = initialEdges;
+      state.nodes = [];
+      state.edges = [];
       state.buttonMessage = "";
       state.clickCount = 0;
     },

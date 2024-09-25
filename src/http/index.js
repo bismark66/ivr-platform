@@ -50,6 +50,26 @@ const Controller = {
       return { status: "failed", success: false, error: error.message };
     }
   },
+  getFlow: async (id) => {
+    try {
+      const res = await getDoc(doc(db, "flows", id));
+      return { status: "success", success: true, data: res.data() };
+    } catch (error) {
+      return { status: "failed", success: false, error: error.message };
+    }
+  },
+
+  updateFlow: async (id, nodes, edges) => {
+    try {
+      const res = await setDoc(doc(db, "flows", id), {
+        nodes,
+        edges,
+      });
+      return { status: "success", success: true, data: res };
+    } catch (error) {
+      return { status: "failed", success: false, error: error.message };
+    }
+  },
 };
 
 export default Controller;

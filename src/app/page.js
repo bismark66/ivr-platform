@@ -40,6 +40,17 @@ export default function Home() {
     }
   };
 
+  const editFlow = async (id) => {
+    console.log("editFlow id", id);
+    const querySnapshot = await Controller.getFlow(id);
+    console.log("querySnapshot this is doc", querySnapshot);
+    if (querySnapshot.success) {
+      console.log("querySnapshot", querySnapshot);
+      console.log("worked");
+      // window.location.reload();
+    }
+  };
+
   useEffect(() => {
     console.log("");
     fetchFlowFromFirestore();
@@ -53,6 +64,7 @@ export default function Home() {
             key={flow.id}
             flow={flow}
             handleDelete={deleteFlow}
+            editFlow={editFlow}
             modalOpen={() => openModal(true)}
           />
         </Col>
