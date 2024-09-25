@@ -53,7 +53,8 @@ const Controller = {
   getFlow: async (id) => {
     try {
       const res = await getDoc(doc(db, "flows", id));
-      return { status: "success", success: true, data: res.data() };
+      console.log("this is res", res);
+      return { status: "success", success: true, data: { ...res.data(), id } };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
     }

@@ -15,6 +15,8 @@ const flowSlice = createSlice({
     edges: initialEdges,
     buttonClicked: "",
     clickCount: 0,
+    fileId: "",
+    fileName: "",
     // saveNodes:false
   },
   reducers: {
@@ -46,10 +48,14 @@ const flowSlice = createSlice({
       state.edges = [];
       state.buttonMessage = "";
       state.clickCount = 0;
+      state.fileId = "";
+      state.fileName = "";
     },
     setFlow: (state, action) => {
       state.nodes = action.payload.nodes;
       state.edges = action.payload.edges;
+      state.fileId = action.payload.fileId;
+      state.fileName = action.payload.fileName;
     },
   },
 });
