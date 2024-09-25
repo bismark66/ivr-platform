@@ -15,6 +15,8 @@ const flowSlice = createSlice({
     edges: initialEdges,
     buttonClicked: "",
     clickCount: 0,
+    fileId: "",
+    fileName: "",
     // saveNodes:false
   },
   reducers: {
@@ -40,42 +42,23 @@ const flowSlice = createSlice({
     addNode: (state, action) => {
       state.nodes.push(action.payload); // Add new node to the state
     },
-    // saveFlowToFirestore: async (state) => {
-    //   const nodes = state.nodes;
-    //   const edges = state.edges;
-    //   const res = await Controller.saveFlowToFirestore(nodes, edges);
-    //   console.log("res", res);
-    //   // saveFlow(nodes, edges); // Call the function to save data to Firestore
-    // },
+
     reset: (state) => {
-      state.nodes = initialNodes;
-      state.edges = initialEdges;
+      state.nodes = [];
+      state.edges = [];
       state.buttonMessage = "";
       state.clickCount = 0;
+      state.fileId = "";
+      state.fileName = "";
+    },
+    setFlow: (state, action) => {
+      state.nodes = action.payload.nodes;
+      state.edges = action.payload.edges;
+      state.fileId = action.payload.fileId;
+      state.fileName = action.payload.fileName;
     },
   },
 });
-
-// const saveFlow = async (nodes, edges) => {
-//   if (nodes.length === 0 && edges.length === 0) {
-//     console.log("No data was found to be saved");
-//     return;
-//   }
-//   try {
-//     const flowData = {
-//       nodes,
-//       edges,
-//       createdAt: new Date(),
-//     };
-
-//     // Save the flow data to Firestore
-//     const docRef = await addDoc(collection(db, "flows"), flowData);
-
-//     console.log("Flow successfully saved!", docRef);
-//   } catch (error) {
-//     console.error("Error saving flow to Firestore:", error);
-//   }
-// };
 
 export const {
   setNodes,
@@ -87,6 +70,7 @@ export const {
   addNode,
   saveFlowToFirestore,
   reset,
+  setFlow,
 } = flowSlice.actions;
 
 export default flowSlice.reducer;

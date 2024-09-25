@@ -38,7 +38,8 @@ const showConfirm = () => {
 
 function ToolBar() {
   const dispatch = useDispatch();
-  const { nodes, edges } = useSelector((state) => state.flow);
+  const { nodes, edges, buttonClicked, clickCount, fileId, fileName } =
+    useSelector((state) => state.flow);
 
   const [open, setOpen] = useState(false);
 
@@ -52,20 +53,38 @@ function ToolBar() {
   };
 
   const handleClick = (nodeItem) => dispatch(updateMessage(nodeItem));
-  const saveFlow = async (fileName) => {
-    // const saveResponse = dispatch(saveFlowToFirestore()); // Trigger the save action
-    // console.log("saveResponse", saveResponse);
-    console.log("filename was called here", fileName);
-    openModal(true);
+  const saveFlow = async (name) => {
+    console.log("filename was called here", name);
     if (nodes.length === 0 && edges.length === 0) {
       console.log("No data was found");
       return;
     }
 
-    const res = await Controller.saveFlowToFirestore(nodes, edges, fileName);
-    console.log("res", res);
-    if (res.success) {
-      setOpen(false);
+    // console.log("fileId", fileId);
+    if (fileId && name) {
+      const res = await Controller.saveFlowToFirestore(nodes, edges, name);
+      console.log("res", res);
+      if (res.success) {
+        setOpen(false);
+      }
+      return;
+    } else if (fileId) {
+      const res = await Controller.updateFlow(fileId, {
+        nodes,
+        edges,
+        fileName: name || fileName,
+      });
+      console.log("res", res);
+      if (res.success) {
+        setOpen(false);
+      }
+      return;
+    } else {
+      const res = await Controller.saveFlowToFirestore(nodes, edges, name);
+      console.log("res", res);
+      if (res.success) {
+        setOpen(false);
+      }
     }
   };
 
@@ -140,7 +159,8 @@ function ToolBar() {
             <Button
               style={{ width: "80%" }}
               type="primary"
-              onClick={() => saveFlow()}
+              // onClick={() => saveFlow()}
+              onClick={() => openModal(true)}
               // onClick={showConfirm()}
             >
               Save

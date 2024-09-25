@@ -9,11 +9,15 @@ import {
 import { Card } from "antd";
 const { Meta } = Card;
 
-function AppCard({ modalOpen, flow, handleDelete }) {
+function AppCard({ modalOpen, flow, handleDelete, editFlow }) {
   const handleDeleteClick = async (flow) => handleDelete(flow);
 
   const handleModalOpen = () => modalOpen(true);
 
+  const handleEdit = (flow) => {
+    console.log("handleEdit", flow);
+    editFlow(flow);
+  };
   const flowSnippet = flow.nodes
     .map((node) => {
       return `${node.type.slice(0, -4)}`;
@@ -30,7 +34,7 @@ function AppCard({ modalOpen, flow, handleDelete }) {
           style={{ color: "red" }}
           onClick={() => handleDeleteClick(flow.id)}
         />,
-        <EditOutlined key="edit" />,
+        <EditOutlined key="edit" onClick={() => handleEdit(flow.id)} />,
         <EllipsisOutlined key="ellipsis" onClick={() => handleModalOpen()} />,
       ]}
     >

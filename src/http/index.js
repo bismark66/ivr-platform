@@ -8,6 +8,7 @@ import {
   doc,
   deleteDoc,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
@@ -45,6 +46,24 @@ const Controller = {
   deleteFlowData: async (id) => {
     try {
       const res = await deleteDoc(doc(db, "flows", id));
+      return { status: "success", success: true, data: res };
+    } catch (error) {
+      return { status: "failed", success: false, error: error.message };
+    }
+  },
+  getFlow: async (id) => {
+    try {
+      const res = await getDoc(doc(db, "flows", id));
+      console.log("this is res", res);
+      return { status: "success", success: true, data: { ...res.data(), id } };
+    } catch (error) {
+      return { status: "failed", success: false, error: error.message };
+    }
+  },
+
+  updateFlow: async (id, update) => {
+    try {
+      const res = await updateDoc(doc(db, "flows", id), update);
       return { status: "success", success: true, data: res };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
