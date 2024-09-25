@@ -32,14 +32,11 @@ const Controller = {
     try {
       const querySnapshot = await getDocs(collection(db, "flows"));
 
-      console.log("querySnapshot---", querySnapshot);
-      // spread querySnapshot and get only id and _documents filed and return
       const querySnapshotData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
-      console.log("querySnapshot", querySnapshot);
       return { status: "success", success: true, data: querySnapshotData };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
@@ -47,12 +44,7 @@ const Controller = {
   },
   deleteFlowData: async (id) => {
     try {
-      console.log("deleteFlow", id);
-      const docRef = doc(db, "flows", id);
-
-      const res = await deleteDoc(docRef);
-
-      console.log(`Document with ID ${id} has been deleted.`);
+      const res = await deleteDoc(doc(db, "flows", id));
       return { status: "success", success: true, data: res };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
