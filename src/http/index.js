@@ -1,6 +1,14 @@
 /** @format */
 
-import { addDoc, collection, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const Controller = {
@@ -24,6 +32,7 @@ const Controller = {
     try {
       const querySnapshot = await getDocs(collection(db, "flows"));
 
+      console.log("querySnapshot---", querySnapshot);
       // spread querySnapshot and get only id and _documents filed and return
       const querySnapshotData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
