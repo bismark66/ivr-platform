@@ -1,17 +1,24 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button, Modal, Row, Col, Form, Input } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
-function AppModal({ visible, onClose, confirmSave }) {
+function AppModal({ visible, onClose, confirmSave, flowName }) {
+  const formRef = useRef(null);
+
   const handleClick = () => {
     prompt("reload");
   };
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const handleSubmit = () => {
+    console.log("ref", formRef);
+    if (formRef.current) {
+      formRef.current.submit(); // Programmatically trigger the form submission
+    }
   };
+
+  const onFinish = (values) => flowName(values.filename);
 
   return (
     <>
@@ -28,19 +35,19 @@ function AppModal({ visible, onClose, confirmSave }) {
                 </Col>
                 <Col span={24} style={{ marginTop: "10px" }}>
                   <Form
+                    ref={formRef}
                     onFinish={onFinish}
                     style={{
-                      //   maxWidth: 600,
                       width: "100%",
                     }}
                   >
                     <Form.Item
-                      name="username"
+                      name="filename"
                       noStyle
                       rules={[
                         {
                           required: true,
-                          message: "Username is required",
+                          message: "FIle name is required",
                         },
                       ]}
                     >
@@ -60,9 +67,9 @@ function AppModal({ visible, onClose, confirmSave }) {
             <Button
               type="primary"
               htmlType="submit"
-              onClick={() => handleClick()}
+              onClick={() => handleSubmit()}
             >
-              Submit
+              Save
             </Button>
           }
           open={visible}

@@ -4,11 +4,12 @@ import { addDoc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const Controller = {
-  saveFlowToFirestore: async (nodes, edges) => {
+  saveFlowToFirestore: async (nodes, edges, fileName) => {
     try {
       const flowData = {
         nodes,
         edges,
+        fileName,
         createdAt: new Date(),
       };
 
