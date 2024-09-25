@@ -53,6 +53,10 @@ const flowSlice = createSlice({
       state.buttonMessage = "";
       state.clickCount = 0;
     },
+    setFlow: (state, action) => {
+      state.nodes = action.payload.nodes;
+      state.edges = action.payload.edges;
+    },
   },
 });
 
