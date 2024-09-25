@@ -52,17 +52,21 @@ function ToolBar() {
   };
 
   const handleClick = (nodeItem) => dispatch(updateMessage(nodeItem));
-  const saveFlow = async () => {
+  const saveFlow = async (fileName) => {
     // const saveResponse = dispatch(saveFlowToFirestore()); // Trigger the save action
     // console.log("saveResponse", saveResponse);
+    console.log("filename was called here", fileName);
     openModal(true);
     if (nodes.length === 0 && edges.length === 0) {
       console.log("No data was found");
       return;
     }
 
-    // const res = await Controller.saveFlowToFirestore(nodes, edges);
-    // console.log("res", res);
+    const res = await Controller.saveFlowToFirestore(nodes, edges, fileName);
+    console.log("res", res);
+    if (res.success) {
+      setOpen(false);
+    }
   };
 
   const resetFlow = () => dispatch(reset());
@@ -78,7 +82,12 @@ function ToolBar() {
           height: "100%",
         }}
       >
-        <AppModal visible={open} onClose={closeModal} confirmSave={true} />
+        <AppModal
+          visible={open}
+          onClose={closeModal}
+          confirmSave={true}
+          flowName={saveFlow}
+        />
         <Row
           justify={"center"}
           align={"middle"}

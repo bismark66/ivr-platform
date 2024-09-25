@@ -4,52 +4,40 @@ import React from "react";
 import {
   EditOutlined,
   EllipsisOutlined,
-  SettingOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
-import { Avatar, Card, Col, Row, Button } from "antd";
+import { Card } from "antd";
 const { Meta } = Card;
 
-function AppCard({ modalOpen }) {
+function AppCard({ modalOpen, flow, handleDelete }) {
+  const handleDeleteClick = async (flow) => handleDelete(flow);
+
   const handleModalOpen = () => modalOpen(true);
+
+  const flowSnippet = flow.nodes
+    .map((node) => {
+      return `${node.type.slice(0, -4)}`;
+    })
+    .join(" - ");
 
   return (
     <Card
       style={{
-        width: 400,
+        width: 300,
       }}
-      cover={
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-        />
-      }
-      // actions={[
-      //   <SettingOutlined key="setting" />,
-      //   <EditOutlined key="edit" />,
-      //   <EllipsisOutlined key="ellipsis" />,
-      // ]}
+      actions={[
+        <DeleteOutlined
+          style={{ color: "red" }}
+          onClick={() => handleDeleteClick(flow.id)}
+        />,
+        <EditOutlined key="edit" />,
+        <EllipsisOutlined key="ellipsis" onClick={() => handleModalOpen()} />,
+      ]}
     >
-      <Row justify={"center"} style={{ textAlign: "center" }}>
-        <Col span={8}>
-          <Button type="primary">
-            <SettingOutlined key="setting" style={{ paddingRight: "10px" }} />
-            Edit
-          </Button>
-        </Col>
-        <Col span={8}>
-          <Button type="primary">
-            <EditOutlined key="edit" style={{ paddingRight: "10px" }} />
-            Delete
-          </Button>
-        </Col>
-        <Col span={8}>
-          {" "}
-          <Button onClick={() => handleModalOpen()} type="primary">
-            <EllipsisOutlined key="ellipsis" style={{ paddingLeft: "10px" }} />
-            Simulate
-          </Button>
-        </Col>
-      </Row>
+      <Meta
+        title={flow?.fileName || "Untitled"}
+        description={<>{flowSnippet}</>}
+      />
     </Card>
   );
 }

@@ -1,14 +1,23 @@
 /** @format */
 
-import { addDoc, collection, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const Controller = {
-  saveFlowToFirestore: async (nodes, edges) => {
+  saveFlowToFirestore: async (nodes, edges, fileName) => {
     try {
       const flowData = {
         nodes,
         edges,
+        fileName,
         createdAt: new Date(),
       };
 
@@ -22,19 +31,20 @@ const Controller = {
   getAllFlows: async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "flows"));
-      console.log("querySnapshot", querySnapshot);
-      return { status: "success", success: true, data: querySnapshot };
+
+      const querySnapshotData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      return { status: "success", success: true, data: querySnapshotData };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
     }
   },
   deleteFlowData: async (id) => {
     try {
-      const docRef = doc(db, "flows", id);
-
-      const res = await deleteDoc(docRef);
-
-      console.log(`Document with ID ${id} has been deleted.`);
+      const res = await deleteDoc(doc(db, "flows", id));
       return { status: "success", success: true, data: res };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
