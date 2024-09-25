@@ -30,7 +30,7 @@ function AppCard({ modalOpen, flow, handleDelete }) {
           style={{ color: "red" }}
           onClick={() => handleDeleteClick(flow.id)}
         />,
-        <EditOutlined key="edit" />,
+        <EditOutlined key="edit" onClick={() => handleEdit()} />,
         <EllipsisOutlined key="ellipsis" onClick={() => handleModalOpen()} />,
       ]}
     >
