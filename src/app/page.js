@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
-import { Button } from "antd";
+import { Button, Row, Col } from "antd";
 import AppCard from "@/components/card";
 import AppModal from "@/components/modal";
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -26,7 +26,8 @@ export default function Home() {
   const fetchFlowFromFirestore = async () => {
     const querySnapshot = await Controller.getAllFlows();
     if (querySnapshot.success) {
-      console.log("querySnapshot", querySnapshot.data.docs);
+      console.log("querySnapshot", querySnapshot);
+      setAllFlows(querySnapshot.data);
     }
   };
 
@@ -34,6 +35,20 @@ export default function Home() {
     console.log("");
     fetchFlowFromFirestore();
   }, []);
+
+  const renderFlows = () => {
+    return allFlows.map((flow) => {
+      return (
+        <Col span={6}>
+          <AppCard
+            key={flow.id}
+            flow={flow}
+            modalOpen={() => openModal(true)}
+          />
+        </Col>
+      );
+    });
+  };
 
   return (
     <main className={styles.main}>
@@ -64,18 +79,19 @@ export default function Home() {
         cursus, risus lectus hendrerit tellus, vel congue velit arcu id dolor.
       </h2>
 
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
-      >
-        {/* <AppCard modalOpen={() => console.log("clicked")} /> */}
-        <AppCard modalOpen={() => openModal(true)} />
-      </div>
+      > */}
+      {/* <AppCard modalOpen={() => console.log("clicked")} /> */}
+      {/* <AppCard modalOpen={() => openModal(true)} /> */}
+      <Row gutter={[16, 16]}>{renderFlows()}</Row>
+      {/* </div> */}
 
-      <Button type="primary">Submit</Button>
+      {/* <Button type="primary">Submit</Button> */}
     </main>
   );
 }
