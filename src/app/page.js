@@ -52,12 +52,14 @@ export default function Home() {
     console.log("querySnapshot this is doc", querySnapshot);
 
     if (querySnapshot.success) {
-      console.log("querySnapshot", querySnapshot.data.edges);
-      console.log("worked");
+      console.log("querySnapshot", querySnapshot.data);
+      console.log("worked", querySnapshot.data.fileName);
       dispatch(
         setFlow({
           nodes: querySnapshot.data.nodes,
           edges: querySnapshot.data.edges,
+          fileId: querySnapshot.data.id,
+          fileName: querySnapshot.data.fileName,
         })
       );
       router.push("/editor");

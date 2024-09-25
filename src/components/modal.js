@@ -44,12 +44,12 @@ function AppModal({ visible, onClose, confirmSave, flowName }) {
                     <Form.Item
                       name="filename"
                       noStyle
-                      rules={[
-                        {
-                          required: true,
-                          message: "FIle name is required",
-                        },
-                      ]}
+                      //   rules={[
+                      //     {
+                      //       required: true,
+                      //       message: "FIle name is required",
+                      //     },
+                      //   ]}
                     >
                       <Input
                         style={{

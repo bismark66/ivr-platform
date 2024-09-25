@@ -8,6 +8,7 @@ import {
   doc,
   deleteDoc,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
@@ -60,12 +61,9 @@ const Controller = {
     }
   },
 
-  updateFlow: async (id, nodes, edges) => {
+  updateFlow: async (id, update) => {
     try {
-      const res = await setDoc(doc(db, "flows", id), {
-        nodes,
-        edges,
-      });
+      const res = await updateDoc(doc(db, "flows", id), update);
       return { status: "success", success: true, data: res };
     } catch (error) {
       return { status: "failed", success: false, error: error.message };
