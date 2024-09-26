@@ -19,12 +19,19 @@ function AppHeader({ onThemeChange }) {
   };
 
   return (
-    <Row>
+    <Row justify={"center"} align={"middle"}>
       <Col span={8} offset={16} style={{ textAlign: "center" }}>
         {theme === "dark" ? (
-          <MoonOutlined {...iconProps} rotate={129} />
+          <MoonOutlined
+            {...iconProps}
+            // rotate={129}
+            style={{ color: "white", fontSize: "24px" }}
+          />
         ) : (
-          <SunOutlined {...iconProps} />
+          <SunOutlined
+            {...iconProps}
+            style={{ color: "white", fontSize: "24px" }}
+          />
         )}
       </Col>
     </Row>
