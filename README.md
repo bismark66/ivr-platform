@@ -15,7 +15,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started, How to run locally on your machine
 
-1. Clone this project by running `git@github.com:bismark66/ivr-platform.git`
+1. Clone this project by running `git clone git@github.com:bismark66/ivr-platform.git`
 2. Install all dependencies from the project directory by running
 
 ```bash
