@@ -1,21 +1,21 @@
 <!-- @format -->
 
-# A video app created using nextjs
+# An IVR flow buider app created using nextjs
 
-This project is an example movies applications likew netflix. It uses the IMDB public REST API endpoint for data.
-It uses typescrpt and shows how to render movies onto the app or frontend.Every part of the project is a sample code which shows how to do the following:
+This project showcases an IVR flow builder web application. It leverages the react flow library, redux and firebase for smooth user experience.
+It uses react and allows for users to create a flow with four basic nodes, audioNode, transferCallNode, menuNode and voiceRecordNode. It allows for the creation of a flow using these basic nodes, save, edit, reset and simulate flow. It uses the firebase firestore as a database with redux as state management tool. Every part of the project is a sample code which shows how to do the following:
 
 - How to use the nextjs app router
 - How to use the nextjs fetch tool for calling api endpoints
 - How to use localstorage to handle data
-- How to use dynamic route or slug
+- How to overlay an interface
 - How to programmatically route
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started, How to run locally on your machine
 
-1. Clone this project by running `git clone git@github.com:bismark66/video-app.git`
+1. Clone this project by running `git@github.com:bismark66/ivr-platform.git`
 2. Install all dependencies from the project directory by running
 
 ```bash
@@ -28,10 +28,20 @@ pnpm install
 bun install
 ```
 
-3. Create your public api key from IMDB using the link shown in IMDB Public API and configure in your .env.local file
+3. Create your public api keys from firebase firestore after creating a project on firebase.
+   Get your Public API keys
+   Create a .env.local file at the root of your project
+   copy the env in the .env file and assign their repective keys to them in the .env.local
 
-- Use this api key, NEXT_PUBLIC_TMDB_API_KEY= b390329d9a4bbb3b5a960d29cbf30152
-- Use this access token, NEXT_PUBLIC_TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMzkwMzI5ZDlhNGJiYjNiNWE5NjBkMjljYmYzMDE1MiIsIm5iZiI6MTcyMTY5OTE4Ni41NDI1MzYsInN1YiI6IjYyYzg2NzZkMTNhMzIwMDA0ZjVjYmFiNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PkSuBfkYRZt8PdsX_6y9BCF-x1RiD3Mf0zmXKFYgIZ0
+As Shown below;
+
+- NEXT_PUBLIC_FIREBASE_KEY=
+  -NEXT_PUBLIC_FIREBASE_DOMAIN=
+  -NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+  -NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+  -NEXT_PUBLIC_FIREBASE_SENDER_ID=
+  -NEXT_PUBLIC_MESSAGING_APP_ID=
+  -NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
 
 4. Finally, run the development server:
 
@@ -49,22 +59,36 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Hurrayyyy!!! You are all set to make changes to any part of the project!
 
-## IMDB Public API
+## Firebase Public API
 
+If you dont already have an account with firebase, create one using this link [firebase](https://firebase.google.com)
 Use The Movie Database API to fetch movie data. You can sign up for an API key at [TMDb](https://www.themoviedb.org/)
 
-## Endpoints Used
+## Firebase firestore Endpoints controllers Used
 
-- Top Rated Movies - https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}
-- Up Coming Movies - https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}
-- Popular Movies - https://api.themoviedb.org/3/movie/popular?api_key=${api_key}
-- Get Movie External ID - https://api.themoviedb.org/3/movie/${id}/external_ids?api_key=${api_key}
-- Get Movie By External ID - https://api.themoviedb.org/3/find/${external_id}?external_source=imdb_id
-- Search Movie By Value Passed To URL - https://api.themoviedb.org/3/search/movie?query=${value}
+- getDoc
+- doc
+- getDocs
+- updateDoc
+- addDoc
+- deleteDoc
+
+NB: All these controllers are from the firebase firestore cloud
+import {
+addDoc,
+collection,
+getDocs,
+getDoc,
+doc,
+deleteDoc,
+setDoc,
+updateDoc,
+} from "firebase/firestore";
 
 ## Frameworks
 
 This Projects leverages the use of [ant design](https://ant.design/components/overview/) component libraries for some of it core components
+This Projects leverages the use of [firebase ](https://ant.design/components/overview/) component libraries for some of it core components
 
 ## Testing
 
@@ -72,7 +96,7 @@ Testing was done using [Cypress](https://docs.cypress.io/guides/continuous-integ
 
 ## Deployment
 
-App was deployed to vercel https://video-app-orcin-seven.vercel.app/
+App was deployed to vercel https://ivr-platform.vercel.app/
 
 ## Find bugs
 
