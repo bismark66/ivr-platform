@@ -67,11 +67,15 @@ export default function RootLayout({ children }) {
             }}
           >
             <Layout style={{ height: "100vh", overflow: "hidden" }}>
-              {/* <Header
-                style={{ padding: 0, background: "white", color: "white" }}
+              <Header
+                style={{
+                  padding: 0,
+                  // background: "white",
+                  color: "white",
+                }}
               >
                 <AppHeader onThemeChange={handleThemeChange} />
-              </Header> */}
+              </Header>
               <Layout>
                 <Sider
                   breakpoint="lg"

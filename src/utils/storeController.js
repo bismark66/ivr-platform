@@ -2,22 +2,16 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { addEdge, applyNodeChanges, applyEdgeChanges } from "@xyflow/react";
-import initialNodes from "@/components/node";
-import initialEdges from "@/components/edges";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase";
-import Controller from "../http/index";
 
 const flowSlice = createSlice({
   name: "flow",
   initialState: {
-    nodes: initialNodes,
-    edges: initialEdges,
+    nodes: [],
+    edges: [],
     buttonClicked: "",
     clickCount: 0,
     fileId: "",
     fileName: "",
-    // saveNodes:false
   },
   reducers: {
     setNodes: (state, action) => {
@@ -36,11 +30,11 @@ const flowSlice = createSlice({
       state.edges = addEdge(action.payload, state.edges);
     },
     updateMessage: (state, action) => {
-      state.buttonMessage = action.payload; // Set the string passed from button
+      state.buttonMessage = action.payload;
       state.clickCount = state.clickCount + 1;
     },
     addNode: (state, action) => {
-      state.nodes.push(action.payload); // Add new node to the state
+      state.nodes.push(action.payload);
     },
 
     reset: (state) => {
