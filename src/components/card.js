@@ -27,7 +27,8 @@ function AppCard({ modalOpen, flow, handleDelete, editFlow }) {
   return (
     <Card
       style={{
-        width: 300,
+        width: 260,
+        // padding: 10,
       }}
       actions={[
         <DeleteOutlined

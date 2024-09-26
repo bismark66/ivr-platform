@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Modal, Flex } from "antd";
 import AppCard from "@/components/card";
 import AppModal from "@/components/modal";
 import Controller from "@/http";
@@ -72,17 +72,15 @@ export default function Home() {
   }, []);
 
   const renderFlows = () => {
-    return allFlows.map((flow) => {
+    return allFlows.map((flow, index) => {
       return (
-        <Col span={6}>
-          <AppCard
-            key={flow.id}
-            flow={flow}
-            handleDelete={deleteFlow}
-            editFlow={editFlow}
-            modalOpen={() => openModal(true)}
-          />
-        </Col>
+        <AppCard
+          key={flow.id}
+          flow={flow}
+          handleDelete={deleteFlow}
+          editFlow={editFlow}
+          modalOpen={() => openModal(true)}
+        />
       );
     });
   };
@@ -91,10 +89,9 @@ export default function Home() {
     <main className={styles.main}>
       <AppModal visible={open} onClose={closeModal} />
 
-      {/* <AppCard modalOpen={() => openModal(true)} /> */}
-      <Row gutter={[16, 16]}>{renderFlows()}</Row>
-
-      {/* <Button type="primary">Submit</Button> */}
+      <Flex wrap gap="large" justify="center">
+        {renderFlows()}
+      </Flex>
     </main>
   );
 }
