@@ -88,7 +88,7 @@ updateDoc,
 ## Frameworks
 
 This Projects leverages the use of [ant design](https://ant.design/components/overview/) component libraries for some of it core components
-This Projects leverages the use of [firebase ](https://ant.design/components/overview/) component libraries for some of it core components
+This Projects leverages the use of [firebase ](https://firebase.google.com) firestore storage cloud as database.
 
 ## Testing
 
