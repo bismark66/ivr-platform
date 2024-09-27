@@ -4,15 +4,8 @@ import React from "react";
 import Builder from "@/components/builder";
 
 function Editor({ userTheme, node }) {
-  //   console.log("----", userTheme);
   return (
-    <div
-      style={
-        {
-          //   backgroundColor: "green"
-        }
-      }
-    >
+    <div>
       <Builder userTheme={userTheme} node={node} />
     </div>
   );
