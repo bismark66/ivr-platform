@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import "./globals.css";
 // import { Inter } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-// import {
-//   UploadOutlined,
-//   UserOutlined,
-//   VideoCameraOutlined,
-// } from "@ant-design/icons";
-import { Layout, theme, ConfigProvider } from "antd";
+import {
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Layout, theme, ConfigProvider, Menu } from "antd";
 import AppHeader from "@/components/AppHeader";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation";
@@ -50,6 +50,17 @@ export default function RootLayout({ children }) {
 
   const Pages = React.cloneElement(children, { userTheme, node });
 
+  const items = [
+    UserOutlined,
+    VideoCameraOutlined,
+    UploadOutlined,
+    UserOutlined,
+  ].map((icon, index) => ({
+    key: String(index + 1),
+    icon: React.createElement(icon),
+    label: `nav ${index + 1}`,
+  }));
+
   return (
     <html lang="en">
       <body>
@@ -89,6 +100,12 @@ export default function RootLayout({ children }) {
                   style={{ overflowY: "hidden" }}
                 >
                   <div className="demo-logo-vertical" />
+                  {/* <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={["4"]}
+                    items={items}
+                  /> */}
                   <Navbar />
                 </Sider>
                 <Content

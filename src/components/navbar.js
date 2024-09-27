@@ -14,7 +14,7 @@ function Navbar() {
     <Menu
       theme="dark"
       mode="inline"
-      defaultSelectedKeys={["4"]}
+      defaultSelectedKeys={["1"]}
       items={menuItems}
     />
   );

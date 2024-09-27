@@ -41,16 +41,7 @@ function AppModal({ visible, onClose, confirmSave, flowName }) {
                       width: "100%",
                     }}
                   >
-                    <Form.Item
-                      name="filename"
-                      noStyle
-                      //   rules={[
-                      //     {
-                      //       required: true,
-                      //       message: "FIle name is required",
-                      //     },
-                      //   ]}
-                    >
+                    <Form.Item name="filename" noStyle>
                       <Input
                         style={{
                           width: "100%",
