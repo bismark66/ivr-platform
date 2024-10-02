@@ -79,6 +79,7 @@ export default function Builder({ userTheme, node }) {
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
         colorMode={userTheme}
+        
       >
         <Controls />
         <MiniMap position="bottom-center" />
