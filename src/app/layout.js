@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
 import { store } from "../utils/store";
 import ToolBar from "@/components/toolBar";
+import Head from "next/head"; // Import Head from Next.js
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -63,6 +64,48 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <Head>
+        {/* General SEO */}
+        <title>Your App Title</title>
+        <meta name="description" content="Your app description here." />
+        <meta name="keywords" content="your, app, keywords, here" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:image" content="Link preview image URL" />
+        <meta property="og:site_name" content="Link preview site name" />
+        <meta property="og:title" content="Link preview title" />
+        <meta property="og:description" content="Link preview description" />
+        <meta property="og:url" content="Link preview URL" />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://ivr-platform.vercel.app/editor"
+        />
+        <meta property="og:title" content="Your App Title" />
+        <meta property="og:description" content="Your app description here." />
+        <meta
+          property="og:image"
+          content="https://yourwebsite.com/og-image.jpg"
+        />
+
+        {/* Twitter */}
+
+        {/* <meta property="twitter:image" content="Twitter link preview image URL"/>
+        <meta property="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:title" content="Twitter link preview title" />
+        <meta property="twitter:description" content="Twitter link preview description" />
+        <meta property="description" content="Search engine description" /> */}
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://yourwebsite.com/" />
+        <meta name="twitter:title" content="Your App Title" />
+        <meta name="twitter:description" content="Your app description here." />
+        <meta
+          name="twitter:image"
+          content="https://yourwebsite.com/twitter-image.jpg"
+        />
+      </Head>
       <body>
         <AntdRegistry>
           <ConfigProvider
