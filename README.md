@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# An IVR flow buider app created using nextjs!!
+# An IVR flow buider app created using nextjs!!!!
 
 This project showcases an IVR flow builder web application. It leverages the react flow library, redux and firebase for smooth user experience.
 It uses react and allows for users to create a flow with four basic nodes, audioNode, transferCallNode, menuNode and voiceRecordNode. It allows for the creation of a flow using these basic nodes, save, edit, reset and simulate flow. It uses the firebase firestore as a database with redux as state management tool. Every part of the project is a sample code which shows how to do the following:
